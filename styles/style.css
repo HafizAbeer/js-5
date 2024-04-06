@@ -1,0 +1,17 @@
+nav,
+footer {
+    background-color: #1d3557;
+}
+
+.cities-name {
+    background-color: #1d3557;
+}
+
+main .buttons .btn {
+    margin-bottom: 8px;
+    min-width: 45%;
+}
+
+main .buttons .btn:last-child {
+    margin-bottom: 0;
+}
