@@ -28,8 +28,9 @@ function upperCase(){
     // document.getElementById("output").innerHTML = upper
 } 
 
-function capitalize(){
-    let capitalizeText = '<span style="text-transform:capitalize;">' + originalText + '</span>'
+function toCapitalize(){
+    clearOutput()
+    let capitalizeText = '<span style="text-transform:capitalize;">' + originalText + '</span>';
     showOutput(capitalizeText)
     // document.getElementById("output").innerHTML = capitalizeText
 }
@@ -40,7 +41,8 @@ function betterFormatting(){
     text = text.toLowerCase()
 
     if (text === ""){
-        alert("Please type your text!!!")
+        showNotification("Please type your text!!!")
+        return
     }
 
     document.getElementById("output").style.textTransform = 'capitalize'
@@ -59,7 +61,7 @@ function addCity(){
     let city = inputValue()
     
     if(!city){
-        alert("Enter your city name")
+        showNotification("Enter your city name")
         return
     }
     
@@ -94,7 +96,7 @@ function checkCity(){
     let city = inputValue()
 
     if (city === ""){
-        alert("Please type your city!!")
+        showNotification("Please type your city!!")
         return
     }
 
@@ -123,7 +125,7 @@ function findWord(){
     let word = inputValue()
 
     if (!word){
-        alert("Please enter text!!!")
+        showNotification("Please enter word!!!")
         return
     }
 
@@ -135,20 +137,31 @@ function findWord(){
         let html = 'Your word' + '<span style="color:green; font-size:20px;">"' + word + '"</span>' + 'found at' + "&nbsp;" + 'index' + "&nbsp;" + '"' + wordFind + '"'
         showOutput(html)
     }else{
-        alert("Please type correct word!!!")
+        showNotification("Please type correct word!!!")
     }
 }
 
 
 function replaceWord() {
     const wordToReplace = inputValue()
+
+    if (!wordToReplace){
+        showNotification("Please type word")
+        return
+    }
     const wordToReplaceWith = prompt("Enter the word you want to replace with:")
+
+    if (!wordToReplaceWith){
+        showNotification("Please enter a word you want to replace with")
+        return
+    }
 
     if (originalText.includes(capitalize(wordToReplace))){
         const updatedOriginalText = originalText.replace(capitalize(wordToReplace) , capitalize(wordToReplaceWith))
         document.querySelector(".randomText").innerHTML = updatedOriginalText
+        showNotification("Successfully Replaced")
     }else{
-        alert("This word does not exist!!!")
+        showNotification("This word does not exist!!!")
     }
 
 }
@@ -158,3 +171,21 @@ function capitalize(string) {
     return capitalizedString;
 }
 
+
+function showNotification(message){
+
+    Toastify({
+        text: message,
+        duration: 3000,
+        destination: "https://github.com/apvarun/toastify-js",
+        newWindow: true,
+        close: true,
+        gravity: "top", // `top` or `bottom`
+        position: "left", // `left`, `center` or `right`
+        stopOnFocus: true, // Prevents dismissing of toast on hover
+        style: {
+          background: "linear-gradient(to right, #00b09b, #96c93d)",
+        },
+        onClick: function(){} // Callback after click
+      }).showToast();
+}
